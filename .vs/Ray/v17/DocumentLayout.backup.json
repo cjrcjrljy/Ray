@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|F:\\Study\\Com_im\\RaytracingFram\\Ray\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|F:\\Study\\Com_im\\RaytracingFram\\Ray\\image.ppm||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|solutionrelative:image.ppm||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|solutionrelative:ClassBase.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{B3F01050-598D-4377-9D8F-64C0B9D1529D}|Ray.vcxproj|solutionrelative:ClassBase.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "image.ppm",
+              "DocumentMoniker": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\image.ppm",
+              "RelativeDocumentMoniker": "image.ppm",
+              "ToolTip": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\image.ppm",
+              "RelativeToolTip": "image.ppm",
+              "ViewState": "AgIAAJNMAAAAAAAAAAAAAJVMAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-12-06T09:58:01.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-06T09:32:11.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ClassBase.cpp",
+              "DocumentMoniker": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.cpp",
+              "RelativeDocumentMoniker": "ClassBase.cpp",
+              "ToolTip": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.cpp",
+              "RelativeToolTip": "ClassBase.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-06T09:26:19.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClassBase.h",
+              "DocumentMoniker": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.h",
+              "RelativeDocumentMoniker": "ClassBase.h",
+              "ToolTip": "F:\\Study\\Com_im\\RaytracingFram\\Ray\\ClassBase.h",
+              "RelativeToolTip": "ClassBase.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-06T09:25:46.837Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
