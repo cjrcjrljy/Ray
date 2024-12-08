@@ -24,25 +24,3 @@ double HitSprehe(const Ray r, Vec3 Sp_ori, double Sp_r)
     
 }
 
-// double HitSprehe(const Ray r, Vec3 Sp_ori, double Sp_r) {  
-//     Vec3 oc = r.origin - Sp_ori;  
-//     double a = dot(r.direction, r.direction);  
-//     double b = 2.0 * dot(oc, r.direction);  
-//     double c = dot(oc, oc) - Sp_r * Sp_r;  
-//     
-//     double discriminant = b*b - 4*a*c;  
-//     
-//     if (discriminant < 0) {  
-//         return 0; // 没有交点  
-//     }   
-//     
-//     // 计算两个交点的时间  
-//     double t1 = (-b - sqrt(discriminant)) / (2.0*a);  
-//     double t2 = (-b + sqrt(discriminant)) / (2.0*a);  
-//     
-//     // 返回最近的正交点时间  
-//     if (t1 > 0) return t1;  
-//     if (t2 > 0) return t2;  
-//     
-//     return 0; // 没有正交点  
-// }

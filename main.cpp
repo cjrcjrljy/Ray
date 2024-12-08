@@ -14,7 +14,16 @@ int main() {
 
 	auto aspect_ratio = 16.0 / 9.0;
 	int image_width = 800;
+	//world
+	Vec3 Sp(0,0,-1);	
+	double Sp_r=0.6;
+	Sphere sphere(Sp,Sp_r);
+	Hittable_list world;
+	world.add(make_shared<Sphere>(point3(0,0,-1), 0.5));
+	world.add(make_shared<Sphere>(point3(0,-100.5,-1), 100));
+	
 
+	
 	// Calculate the image height, and ensure that it's at least 1.
 	int image_height = int(image_width / aspect_ratio);
 	image_height = (image_height < 1) ? 1 : image_height;
@@ -39,8 +48,6 @@ int main() {
 							 - Vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
 	auto pixel00_loc = viewport_upper_left +  (pixel_delta_u + pixel_delta_v)*0.5 ;
 
-	Vec3 Sp(0,0,-1);	
-	double Sp_r=0.6;
 	
 	// Render
 	ofstream fout("output.ppm");
@@ -52,11 +59,15 @@ int main() {
 			auto pixel_center = pixel00_loc + ( pixel_delta_u*i) + ( pixel_delta_v*j);
 			auto ray_direction = pixel_center - camera_center;
 			Ray r(camera_center, ray_direction);
-			double tt =HitSprehe(r,Sp,Sp_r); 
-			if (tt)
+			Hit_record hit_record;
+			bool hit_anything =world.hit(r,0,10000,hit_record);
+			if (hit_anything)
 			{
-				Vec3 point=r.at(tt);
+				
+				Vec3 point=hit_record.normal;
 				point=point.normalize();
+				Vec3 one=Vec3(1);
+				point=(point+one)/2;
 				write_color(fout,Color(point.x,point.y,point.z));
 				continue;
 			}

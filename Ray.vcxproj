@@ -207,6 +207,7 @@
   <ItemGroup>
     <ClInclude Include="ClassBase\ClassBase.h" />
     <ClInclude Include="HitLa\Hit.h" />
+    <ClInclude Include="Uitils\uitils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

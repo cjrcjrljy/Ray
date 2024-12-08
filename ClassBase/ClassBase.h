@@ -10,6 +10,8 @@ class Vec3 {
 public:
 	double x, y, z;
 	double e[3] = { x, y, z };
+	template<typename T>
+	Vec3(T t):x(t),y(t),z(t){}
 	Vec3() : x(0), y(0), z(0) {}
 	Vec3(double x, double y, double z) : x(x), y(y), z(z) {}
 	Vec3(const Vec3& v) : x(v.x), y(v.y), z(v.z) {}
@@ -21,17 +23,20 @@ public:
 	Vec3 normalize() const;
 	Vec3 operator/(double T) const;
 	Vec3 operator/(int T) const;
+	
 };
 double dot(const Vec3& v1, const Vec3& v2);
 Vec3 cross(const Vec3& v1, const Vec3& v2);
 
 
-
+typedef Vec3 point3;
 class Color {
 public:
 	double r, g, b;//r,b,g values are between 0 and 1
 	Color() : r(0), g(0), b(0) {}
 	Color(double r, double g, double b) : r(r), g(g), b(b) {}
+	Color(Vec3 p) : r(p.x), g(p.y), b(p.z) {}
+	Color(const Vec3& p) : r(p.x), g(p.y), b(p.z) {}
 	Color operator+(const Color& c) const;
 	Color operator-(const Color& c) const;
 	Color operator*(double T) const;
