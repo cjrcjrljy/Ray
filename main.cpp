@@ -1,5 +1,7 @@
 #include"ClassBase/ClassBase.h"
 #include<iostream>
+
+#include "ClassBase/Camera.h"
 #include"HitLa/Hit.h"
 using namespace std;
 Color ray_color(const Ray& r) {
@@ -12,9 +14,7 @@ int main() {
 
 	// Image
 
-	auto aspect_ratio = 16.0 / 9.0;
-	int image_width = 800;
-	//world
+	
 	Vec3 Sp(0,0,-1);	
 	double Sp_r=0.6;
 	Sphere sphere(Sp,Sp_r);
@@ -25,56 +25,14 @@ int main() {
 
 	
 	// Calculate the image height, and ensure that it's at least 1.
-	int image_height = int(image_width / aspect_ratio);
-	image_height = (image_height < 1) ? 1 : image_height;
 
-	// Camera
-
-	auto focal_length = 1.0;
-	auto viewport_height = 2.0;
-	auto viewport_width = viewport_height * (double(image_width)/image_height);
-	auto camera_center = Vec3(0, 0, 0);
-
-	// Calculate the vectors across the horizontal and down the vertical viewport edges.
-	auto viewport_u = Vec3(viewport_width, 0, 0);//3.55555
-	auto viewport_v = Vec3(0, -viewport_height, 0);//2
-
-	// Calculate the horizontal and vertical delta vectors from pixel to pixel.
-	auto pixel_delta_u = viewport_u / image_width;//每个点之间的间隔
-	auto pixel_delta_v = viewport_v / image_height;
-
-	// Calculate the location of the upper left pixel.
-	auto viewport_upper_left = camera_center
-							 - Vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
-	auto pixel00_loc = viewport_upper_left +  (pixel_delta_u + pixel_delta_v)*0.5 ;
 
 	
 	// Render
 	ofstream fout("output.ppm");
-	fout << "P3\n" << image_width << " " << image_height << "\n255\n";
-	double maxx=1;
-	for (int j = 0; j < image_height; j++) {
-		// std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
-		for (int i = 0; i < image_width; i++) {
-			auto pixel_center = pixel00_loc + ( pixel_delta_u*i) + ( pixel_delta_v*j);
-			auto ray_direction = pixel_center - camera_center;
-			Ray r(camera_center, ray_direction);
-			Hit_record hit_record;
-			bool hit_anything =world.hit(r,0,10000,hit_record);
-			if (hit_anything)
-			{
-				
-				Vec3 point=hit_record.normal;
-				point=point.normalize();
-				Vec3 one=Vec3(1);
-				point=(point+one)/2;
-				write_color(fout,Color(point.x,point.y,point.z));
-				continue;
-			}
-			Color pixel_color = ray_color(r);
-			write_color(fout, pixel_color);
-		}
-	}
-	std::clog << "\rDone.                 \n";
-
+	Camera camera;
+	camera.aspect_ratio=16.0 / 9.0;
+	camera.image_width=640;
+	camera.render(world,fout);
+	
 }

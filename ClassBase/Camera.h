@@ -7,7 +7,7 @@ class Camera
 public:
     double aspect_ratio=1.0;
     int image_width=100;
-    void  render(const Hitobjects &world,ofstream outf)
+    void  render(const Hitobjects &world,ofstream& outf)
     {
         Initialize();
         outf<< "P3\n" << image_width << ' ' << image_height << "\n255\n";
@@ -15,7 +15,7 @@ public:
         {
             for(int j=0;j<image_width;j++)
             {
-                auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+                auto pixel_center = pixel00_loc + (j * pixel_delta_u) + (i * pixel_delta_v);
                 auto ray_direction = pixel_center - center;
                 Ray r(center, ray_direction);
 

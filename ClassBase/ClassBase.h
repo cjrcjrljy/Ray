@@ -25,9 +25,9 @@ public:
 	Vec3 operator/(int T) const;
 
 	template<typename T>
-	friend  Vec3 operator*(T T, const Vec3& v)
+	friend  Vec3 operator*(T t, const Vec3& v)
 	{
-		return Vec3(v.x*T, v.y*T, v.z*T);
+		return Vec3(v.x*t, v.y*t, v.z*t);
 	}
 	
 	
