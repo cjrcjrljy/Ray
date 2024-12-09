@@ -23,6 +23,13 @@ public:
 	Vec3 normalize() const;
 	Vec3 operator/(double T) const;
 	Vec3 operator/(int T) const;
+
+	template<typename T>
+	friend  Vec3 operator*(T T, const Vec3& v)
+	{
+		return Vec3(v.x*T, v.y*T, v.z*T);
+	}
+	
 	
 };
 double dot(const Vec3& v1, const Vec3& v2);
@@ -43,6 +50,12 @@ public:
 	Color operator/(double T) const;
 	Color operator/(int T) const;
 	Color operator*(int T) const;
+	template<typename T>
+	friend  Color operator*(T t,const Color &color )
+	{
+		return Color(t*color.r,t*color.g,t*color.b);
+	}
+	
 	
 };
 

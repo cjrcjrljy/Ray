@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ClassBase\Camera.cpp" />
     <ClCompile Include="ClassBase\ClassBase.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -205,6 +206,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClassBase\Camera.h" />
     <ClInclude Include="ClassBase\ClassBase.h" />
     <ClInclude Include="HitLa\Hit.h" />
     <ClInclude Include="Uitils\uitils.h" />
