@@ -4,7 +4,7 @@
 #include <iostream>
 #include <limits>
 #include <memory>
-
+#include <random>
 
 // C++ Std Usings
 
@@ -22,6 +22,19 @@ inline double degrees_to_radians(double degrees) {
     return degrees * pi / 180.0;
 }
 
+inline double random_double() {
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
+
+inline double random_double(double min, double max) {
+    // Returns a random real in [min,max).
+    return min + (max-min)*random_double();
+}
+
+
 class interval {
 public:
     double min, max;
@@ -38,12 +51,21 @@ public:
         return min <= x && x <= max;
     }
 
+    
+    
+    double clamp(double x) const {
+        if (x < min) return min;
+        if (x > max) return max;
+        return x;
+    }
+
+    
     bool surrounds(double x) const {
         return min < x && x < max;
     }
 
-    static const interval empty, universe;
+     static interval empty, universe;
 };
-
-// const interval interval::empty    = interval(+infinity, -infinity);
-// const interval interval::universe = interval(-infinity, +infinity);
+//
+// interval interval::empty    = interval(+infinity, -infinity);
+// interval interval::universe = interval(-infinity, +infinity);

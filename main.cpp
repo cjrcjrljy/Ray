@@ -32,7 +32,8 @@ int main() {
 	ofstream fout("output.ppm");
 	Camera camera;
 	camera.aspect_ratio=16.0 / 9.0;
-	camera.image_width=640;
+	camera.image_width=600;
+	camera.samples_per_pixel=10;
 	camera.render(world,fout);
 	
 }

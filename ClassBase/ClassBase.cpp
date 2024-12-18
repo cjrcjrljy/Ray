@@ -1,5 +1,5 @@
 #include"ClassBase.h"
-
+#include"../Uitils/uitils.h"
 Vec3 Vec3::operator+(const Vec3& v) const
 {
 	Vec3* result = new Vec3();
@@ -138,10 +138,28 @@ Color Color::operator*(int T) const
 	return *result;
 }
 
+Color Color::operator+=(const Color& c)
+{
+	Color* result = new Color();
+	result->r=r+c.r;
+	result->g=g+c.g;
+	result->b=b+c.b;
+	return *result;
+}
+
 void write_color(ostream& out, Color pixel_color) {
-	out << static_cast<int>(255.999 * pixel_color.r) << ' '
-		<< static_cast<int>(255.999 * pixel_color.g) << ' '
-		<< static_cast<int>(255.999 * pixel_color.b) << '\n';
+	auto r = pixel_color.r;
+	auto g = pixel_color.g;
+	auto b = pixel_color.b;
+
+	// Translate the [0,1] component values to the byte range [0,255].
+	static const interval intensity(0.000, 0.999);
+	int rbyte = int(256 * intensity.clamp(r));
+	int gbyte = int(256 * intensity.clamp(g));
+	int bbyte = int(256 * intensity.clamp(b));
+
+	// Write out the pixel color components.
+	out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
 }
 
 Vec3 Ray::at(double t) const
