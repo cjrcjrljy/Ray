@@ -18,11 +18,10 @@ public:
         {
             for(int j=0;j<image_width;j++)
             {
-                auto pixel_center = pixel00_loc + (j * pixel_delta_u) + (i * pixel_delta_v);
-                auto ray_direction = pixel_center - center;
-                Ray r(center, ray_direction);
-
-                Color pixel_color = rayColor(r, world);
+               
+                Ray ray =get_ray(j,i);
+                Color pixel_color = rayColor(ray, world);
+                
                 write_color(outf, pixel_color);
             }
         }
@@ -65,14 +64,14 @@ public:
 
 
 
-    Ray get_ray(int i, int j) const {
+    Ray get_ray(int j, int i) const {
         // Construct a camera ray originating from the origin and directed at randomly sampled
         // point around the pixel location i, j.
 
         auto offset = sample_square();
         auto pixel_sample = pixel00_loc
-                          + ((i + offset.x) * pixel_delta_u)
-                          + ((j + offset.y) * pixel_delta_v);
+                          + ((j + offset.x) * pixel_delta_u)
+                          + ((i + offset.y) * pixel_delta_v);
 
         auto ray_origin = center;
         auto ray_direction = pixel_sample - ray_origin;
