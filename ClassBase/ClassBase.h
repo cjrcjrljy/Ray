@@ -50,7 +50,7 @@ public:
 	Color operator/(double T) const;
 	Color operator/(int T) const;
 	Color operator*(int T) const;
-	Color operator+=(const Color& c);
+	Color& operator+=(const Color& c);
 	template<typename T>
 	friend  Color operator*(T t,const Color &color )
 	{

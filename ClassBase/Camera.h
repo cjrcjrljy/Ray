@@ -19,10 +19,16 @@ public:
             for(int j=0;j<image_width;j++)
             {
                
-                Ray ray =get_ray(j,i);
-                Color pixel_color = rayColor(ray, world);
+               
+                Color pixel_color = Color(0,0,0);
+                for (int sim=0;sim<samples_per_pixel;sim++)
+                {
+                    Ray ray =get_ray(j,i);
+                    pixel_color+=rayColor(ray, world);
+                    
+                }
                 
-                write_color(outf, pixel_color);
+                write_color(outf, pixel_samples_scale*pixel_color);
             }
         }
     }

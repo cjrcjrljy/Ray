@@ -138,13 +138,12 @@ Color Color::operator*(int T) const
 	return *result;
 }
 
-Color Color::operator+=(const Color& c)
+Color& Color::operator+=(const Color& c)
 {
-	Color* result = new Color();
-	result->r=r+c.r;
-	result->g=g+c.g;
-	result->b=b+c.b;
-	return *result;
+	r+=c.r;
+	g+=c.g;
+	b+=c.b;
+	return *this;
 }
 
 void write_color(ostream& out, Color pixel_color) {
