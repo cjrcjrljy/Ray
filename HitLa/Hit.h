@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../ClassBase/ClassBase.h"
-
+class Material;
 double HitSprehe(const Ray r,Vec3 Sp_ori,double Sp_r);
 
 
@@ -14,6 +14,7 @@ public:
     Vec3 normal;
     double t;
     bool front_face;
+    shared_ptr<Material> mat;
     void set_face_normal(const Ray& r, const Vec3& outward_normal) {
         // Sets the hit record normal vector.
         // NOTE: the parameter `outward_normal` is assumed to have unit length.
@@ -77,8 +78,9 @@ class Sphere:public Hitobjects
 public:
     Vec3 center;
     double radius;
-    Sphere(Vec3 center,double radius):center(center),radius(radius){};
+    Sphere(Vec3 center,double radius,shared_ptr<Material> mat):center(center),radius(radius),mat(mat){};
     Sphere():center(Vec3(0,0,0)),radius(0){};
+    
     bool hit(const Ray& r, double ray_tmin, double ray_tmax, Hit_record& rec) const override {
         Vec3 oc = center - r.origin;
         auto a = dot (r.direction,r.direction);
@@ -102,11 +104,12 @@ public:
         rec.t = root;
         rec.point= r.at(rec.t);
         rec.normal = (rec.point - center) / radius;
+        rec.mat = mat;
         Vec3 outward_normal = (rec.point - center) / radius;
         
         rec.set_face_normal(r, outward_normal.normalize());
-
+        
         return true;
     }
-    
+    shared_ptr<Material> mat;
 };

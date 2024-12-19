@@ -202,12 +202,14 @@
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="ClassBase\Material.cpp" />
     <ClCompile Include="HitLa\Hit.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassBase\Camera.h" />
     <ClInclude Include="ClassBase\ClassBase.h" />
+    <ClInclude Include="ClassBase\Material.h" />
     <ClInclude Include="HitLa\Hit.h" />
     <ClInclude Include="Uitils\uitils.h" />
   </ItemGroup>

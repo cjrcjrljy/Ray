@@ -2,13 +2,14 @@
 #include "ClassBase.h"
 #include"../Uitils/uitils.h"
 #include"../HitLa/Hit.h"
+#include "Material.h"
 class Camera
 {
 public:
     double aspect_ratio=1.0;
     int image_width=100;
     int    samples_per_pixel = 10;
-
+    int max_depth = 10;
     
     void  render(const Hitobjects &world,ofstream& outf)
     {
@@ -24,7 +25,8 @@ public:
                 for (int sim=0;sim<samples_per_pixel;sim++)
                 {
                     Ray ray =get_ray(j,i);
-                    pixel_color+=rayColor(ray, world);
+                    pixel_color+=rayColor(ray, world,max_depth);
+                    
                     
                 }
                 
@@ -33,13 +35,23 @@ public:
         }
     }
 
-    Color rayColor(const Ray& ray,const Hitobjects &world)
+    Color rayColor(const Ray& ray,const Hitobjects &world,int depth)
     {
+        if (depth<0) return Color(0,0,0);
         Hit_record rec;
-        if (world.hit(ray,0,infinity,rec))
+        if (world.hit(ray,0.001,infinity,rec))
         {
-            Vec3 color=rec.normal+Vec3(1)*0.5;
-            return Color( color.x,color.y,color.z);
+            // Vec3 color=rec.normal+Vec3(1)*0.5;
+            // return Color( color.x,color.y,color.z);
+            // Vec3 direction = random_on_hemisphere(rec.normal);
+            // Vec3 direction = rec.normal + random_unit_vector();
+            // return 0.5 * rayColor(Ray(rec.point, direction), world,depth-1);
+       
+            Ray scattered;
+            Color attenuation;
+            if (rec.mat->scatter(ray, rec, attenuation, scattered))
+                return attenuation * rayColor(scattered,world ,depth-1);
+            return Color(0,0,0);
         }
         Vec3 unit_dir=ray.direction.normalize();
         auto a=0.5*(unit_dir.y+1);

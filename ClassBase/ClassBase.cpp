@@ -70,6 +70,16 @@ Vec3 Vec3::operator/(int T) const
 	return *result; return Vec3();
 }
 
+Vec3 Vec3::random()
+{
+	return Vec3(random_double() , random_double() , random_double() );
+}
+
+Vec3 Vec3::random(double min, double max)
+{
+	return Vec3(random_double(min,max) ,random_double(min,max),random_double(min,max));
+}
+
 double dot(const Vec3& v1, const Vec3& v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
@@ -150,7 +160,9 @@ void write_color(ostream& out, Color pixel_color) {
 	auto r = pixel_color.r;
 	auto g = pixel_color.g;
 	auto b = pixel_color.b;
-
+	r = linear_to_gamma(r);
+	g = linear_to_gamma(g);
+	b = linear_to_gamma(b);
 	// Translate the [0,1] component values to the byte range [0,255].
 	static const interval intensity(0.000, 0.999);
 	int rbyte = int(256 * intensity.clamp(r));
