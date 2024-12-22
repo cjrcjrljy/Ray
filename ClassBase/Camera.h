@@ -14,7 +14,8 @@ public:
     point3 lookfrom = point3(0,0,0);   // Point camera is looking from
     point3 lookat   = point3(0,0,-1);  // Point camera is looking at
     vec3   vup      = vec3(0,1,0);     // Camera-relative "up" direction
-
+    double defocus_angle = 0;  // Variation angle of rays through each pixel
+    double focus_dist = 10;    // Distance from camera lookfrom point to plane of perfect focus
     
     void  render(const Hitobjects &world,ofstream& outf)
     {
@@ -70,10 +71,10 @@ public:
         pixel_samples_scale = 1.0 / samples_per_pixel;
         center = lookfrom;
 
-        auto focal_length = (lookfrom - lookat).length();
+       
         auto theta = degrees_to_radians(vfov);
         auto h = std::tan(theta/2);
-        auto viewport_height = 2 * h * focal_length;
+        auto viewport_height = 2 * h * focus_dist;
         double viewport_width=viewport_height*(double(image_width)/image_height);
 
         // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
@@ -87,13 +88,20 @@ public:
         pixel_delta_u=viewport_u/image_width;
         pixel_delta_v=viewport_v/image_height;
 
-        auto viewport_upper_left = center - (focal_length * w) - viewport_u/2 - viewport_v/2;
+        auto viewport_upper_left = center - (focus_dist * w) - viewport_u/2 - viewport_v/2;
         pixel00_loc = viewport_upper_left +(pixel_delta_u + pixel_delta_v)*0.5;
+        auto defocus_radius = focus_dist * std::tan(degrees_to_radians(defocus_angle / 2));
+        defocus_disk_u = u * defocus_radius;
+        defocus_disk_v = v * defocus_radius;
         
     }
 
 
-
+    point3 defocus_disk_sample() const {
+        // Returns a random point in the camera defocus disk.
+        auto p = random_in_unit_disk();
+        return center + (p.x * defocus_disk_u) + (p.y * defocus_disk_v);
+    }
 
     Ray get_ray(int j, int i) const {
         // Construct a camera ray originating from the origin and directed at randomly sampled
@@ -104,7 +112,7 @@ public:
                           + ((j + offset.x) * pixel_delta_u)
                           + ((i + offset.y) * pixel_delta_v);
 
-        auto ray_origin = center;
+        auto ray_origin = (defocus_angle <= 0) ? center : defocus_disk_sample();
         auto ray_direction = pixel_sample - ray_origin;
 
         return Ray(ray_origin, ray_direction);
@@ -126,4 +134,7 @@ private:
     Vec3 pixel_delta_v;
     double pixel_samples_scale;
     vec3   u, v, w;              // Camera frame basis vectors
+    vec3   defocus_disk_u;       // Defocus disk horizontal radius
+    vec3   defocus_disk_v;       // Defocus disk vertical radius
+
 };

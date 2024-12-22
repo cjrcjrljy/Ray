@@ -4,7 +4,7 @@
 #include<iostream>
 #include<fstream>
 using namespace std;
-
+#include "../Uitils/uitils.h"
 class Vec3 {
 
 public:
@@ -25,7 +25,14 @@ public:
 	Vec3 operator/(int T) const;
 	static Vec3 random();
 	static Vec3 random(double min, double max);
-	
+	friend  Vec3 operator*(const Vec3 t, const Vec3& v)
+	{
+		Vec3 c;
+		c.x=t.x*v.x;
+		c.y=t.y*v.y;
+		c.z=t.z*v.z;
+		return c;
+	}
 	template<typename T>
 	friend  Vec3 operator*(T t, const Vec3& v)
 	{
@@ -74,7 +81,13 @@ inline vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
 	vec3 r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.length()*r_out_perp.length())) * n;
 	return r_out_perp + r_out_parallel;
 }
-
+inline vec3 random_in_unit_disk() {
+	while (true) {
+		auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
+		if (p.length()*p.length() < 1)
+			return p;
+	}
+}
 
 typedef Vec3 point3;
 class Color {
