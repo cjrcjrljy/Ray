@@ -65,6 +65,17 @@ inline Vec3 random_on_hemisphere(const Vec3& normal) {
 	else
 		return on_unit_sphere*-1;
 }
+
+typedef Vec3 vec3;
+
+inline vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
+	auto cos_theta = std::fmin(dot(uv*-1, n), 1.0);
+	vec3 r_out_perp =  etai_over_etat * (uv + cos_theta*n);
+	vec3 r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.length()*r_out_perp.length())) * n;
+	return r_out_perp + r_out_parallel;
+}
+
+
 typedef Vec3 point3;
 class Color {
 public:

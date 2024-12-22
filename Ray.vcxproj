@@ -205,6 +205,7 @@
     <ClCompile Include="ClassBase\Material.cpp" />
     <ClCompile Include="HitLa\Hit.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Uitils\uitils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClassBase\Camera.h" />

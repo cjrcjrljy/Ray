@@ -13,7 +13,7 @@ using std::shared_ptr;
 
 // Constants
 
-const double infinity = std::numeric_limits<double>::infinity();
+
 const double pi = 3.1415926535897932385;
 
 // Utility Functions
@@ -34,7 +34,7 @@ inline double random_double(double min, double max) {
     return min + (max-min)*random_double();
 }
 
-
+const static double infinity = std::numeric_limits<double>::infinity();
 class interval {
 public:
     double min, max;
@@ -64,8 +64,8 @@ public:
         return min < x && x < max;
     }
 
-     static interval empty, universe;
+ static  const interval empty, universe;
 };
 //
-// interval interval::empty    = interval(+infinity, -infinity);
+//  interval interval::empty    = interval(+infinity, -infinity);
 // interval interval::universe = interval(-infinity, +infinity);

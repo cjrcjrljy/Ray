@@ -1,6 +1,6 @@
 #include"ClassBase/ClassBase.h"
 #include<iostream>
-
+#include "Uitils/uitils.h"
 #include "ClassBase/Camera.h"
 #include"HitLa/Hit.h"
 using namespace std;
@@ -13,7 +13,7 @@ Color ray_color(const Ray& r) {
 int main() {
 
 	// Image
-
+	
 	
 	// Vec3 Sp(0,0,-1);	
 	// double Sp_r=0.6;
@@ -22,14 +22,17 @@ int main() {
 	// world.add(make_shared<Sphere>(point3(0,0,-1), 0.5));
 	// world.add(make_shared<Sphere>(point3(0,-100.5,-1), 100));
 	auto material_ground = make_shared<lambertian>(Color(0.8, 0.8, 0.0));
-	auto material_center = make_shared<Metal>(Color(0.1, 0.2, 0.5),.2);
-	auto material_left   = make_shared<Metal>(Color(0.8, 0.8, 0.8),0.3);
-	auto material_right  = make_shared<Metal>(Color(0.8, 0.6, 0.2),1.0);
+	auto material_center = make_shared<lambertian>(Color(0.1, 0.2, 0.5));
+	auto material_left   = make_shared<dielectric>(1.50);
+	auto material_bubble = make_shared<dielectric>(1.00 / 1.50);
+	auto material_right  = make_shared<Metal>(Color(0.8, 0.6, 0.2), 1.0);
 
 	world.add(make_shared<Sphere>(point3( 0.0, -100.5, -1.0), 100.0, material_ground));
 	world.add(make_shared<Sphere>(point3( 0.0,    0.0, -1.2),   0.5, material_center));
 	world.add(make_shared<Sphere>(point3(-1.0,    0.0, -1.0),   0.5, material_left));
+	world.add(make_shared<Sphere>(point3(-1.0,    0.0, -1.0),   0.4, material_bubble));
 	world.add(make_shared<Sphere>(point3( 1.0,    0.0, -1.0),   0.5, material_right));
+
 
 	
 	// Calculate the image height, and ensure that it's at least 1.
@@ -42,6 +45,10 @@ int main() {
 	camera.aspect_ratio=16.0 / 9.0;
 	camera.image_width=1200;
 	camera.samples_per_pixel=10;
+	camera.vfov = 90;
+	camera.lookfrom = point3(-2,2,1);
+	camera.lookat   = point3(0,0,-1);
+	camera.vup      = vec3(0,1,0);
 	camera.render(world,fout);
 	
 }

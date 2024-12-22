@@ -10,6 +10,11 @@ public:
     int image_width=100;
     int    samples_per_pixel = 10;
     int max_depth = 10;
+    double vfov = 90;  // Vertical view angle (field of view)
+    point3 lookfrom = point3(0,0,0);   // Point camera is looking from
+    point3 lookat   = point3(0,0,-1);  // Point camera is looking at
+    vec3   vup      = vec3(0,1,0);     // Camera-relative "up" direction
+
     
     void  render(const Hitobjects &world,ofstream& outf)
     {
@@ -63,18 +68,26 @@ public:
         image_height=int(image_width/aspect_ratio);
         image_height=(image_height<1)?1:image_height;
         pixel_samples_scale = 1.0 / samples_per_pixel;
-        center=point3(0,0,0);
+        center = lookfrom;
 
-        double focal_length=1.0;
-        double viewport_height=2.0;
+        auto focal_length = (lookfrom - lookat).length();
+        auto theta = degrees_to_radians(vfov);
+        auto h = std::tan(theta/2);
+        auto viewport_height = 2 * h * focal_length;
         double viewport_width=viewport_height*(double(image_width)/image_height);
-        Vec3 viewport_u=Vec3(viewport_width,0,0);
-        Vec3 viewport_v=Vec3(0,-viewport_height,0);
+
+        // Calculate the u,v,w unit basis vectors for the camera coordinate frame.
+        w = (lookfrom - lookat).normalize();
+        u = (cross(vup, w)).normalize();
+        v = cross(w, u);
+
+        vec3 viewport_u = viewport_width * u;    // Vector across viewport horizontal edge
+        vec3 viewport_v = viewport_height * v*-1;  // Vector down viewport vertical ed
 
         pixel_delta_u=viewport_u/image_width;
         pixel_delta_v=viewport_v/image_height;
 
-        auto viewport_upper_left= center - Vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
+        auto viewport_upper_left = center - (focal_length * w) - viewport_u/2 - viewport_v/2;
         pixel00_loc = viewport_upper_left +(pixel_delta_u + pixel_delta_v)*0.5;
         
     }
@@ -111,5 +124,6 @@ private:
     point3 pixel00_loc;
     Vec3 pixel_delta_u;
     Vec3 pixel_delta_v;
-    double pixel_samples_scale; 
+    double pixel_samples_scale;
+    vec3   u, v, w;              // Camera frame basis vectors
 };
